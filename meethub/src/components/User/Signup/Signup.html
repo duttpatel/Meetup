@@ -1,0 +1,72 @@
+<v-container>
+  
+  <v-layout row v-if="error">
+    <v-flex xs12 sm6 offset-sm3>
+      <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+    </v-flex>
+  </v-layout>
+
+ <v-layout row>
+   <v-flex xs12 sm6 offset-sm3>
+    <v-card>
+     <v-card-text>
+      <v-container>
+       <form @submit.prevent="onSignup">
+
+        <v-layout row>
+         <v-flex xs12>
+          <v-text-field
+          name="email_txt"
+          label="Enter Email"
+          v-model="email"
+          type="email"
+          required>
+          </v-text-field>
+         </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+           <v-text-field
+           name="password_txt"
+           label="Enter Password"
+           v-model="password"
+           type="password"
+           required>
+           </v-text-field>
+          </v-flex>
+         </v-layout>
+
+         <v-layout row>
+           <v-flex xs12>
+            <v-text-field
+            name="confirmpassword_txt"
+            label="Re-enter Password"
+            v-model="confirmpassword"
+            type="password"
+            :rules="[ComparePassword]"
+            required>
+            </v-text-field>
+           </v-flex>
+          </v-layout>
+
+          <v-layout row>
+            <v-flex xs12>
+             <v-btn
+             name="submit_btn"
+             type="submit"
+             required
+             class="primary"
+             flat>
+             Signup
+             </v-btn>
+            </v-flex>
+           </v-layout>
+
+       </form>
+      </v-container>
+     </v-card-text>
+    </v-card>
+   </v-flex>
+ </v-layout>
+</v-container>

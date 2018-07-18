@@ -1,0 +1,126 @@
+<v-container>
+    <v-layout row class="mb-1">
+      <v-flex xs12 sm6 offset-sm3>
+        <h1>Create Meetup</h1>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex xs12>
+        <form @submit.prevent="onCreateMeetup">
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <!-- TITLE TEXT FIELD -->
+              <v-text-field
+                name="title"
+                label="Meetup Title"
+                id="title_txt"
+                v-model="title"
+                required>
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+          <!-- Location TEXT FIELD -->      
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field
+                name="location"
+                label="Meetup Location"
+                id="location_txt"
+                v-model="location"
+                required>
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+          <!-- ImageURL TEXT FIELD -->
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+            <v-btn class="primary" flat @click="onPickFile">Image Upload</v-btn>
+            <input type="file" style="display:none;" ref="selectFile" accept="image/*" @change="onFilePicked">
+            </v-flex>
+          </v-layout>
+          <!-- Image Preview FIELD -->
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <img :src="imgURL"
+              height="150px">  
+            </v-flex>
+          </v-layout>
+          <!-- Discription TEXT FIELD -->           
+          <v-layout row>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-text-field
+              name="discription"
+              label="Meetup Discription"
+              id="discription_txt"
+              v-model="discription"
+              multi-line
+              required>
+            </v-text-field>
+          </v-flex>
+        </v-layout>
+        <!-- DATE AND TIME TEXT FIELD -->
+        <v-layout row class="mb-2">
+          <v-flex xs12 sm6 offset-sm3>
+           <h4>Select Date and time </h4> 
+          </v-flex>
+        </v-layout> 
+        <v-layout row class="mb-2">
+         <v-flex xs6 sm3 offset-sm3>
+          <v-dialog
+          ref="datedialog"
+          persistent
+          v-model="datemodal"
+          lazy
+          full-width
+          width="290px"
+          :return-value.sync="eventdate">
+          <v-text-field
+            slot="activator"
+            label="Select Date"
+            v-model="eventdate"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker v-model="eventdate" scrollable>
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="datemodal = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.datedialog.save(eventdate)">OK</v-btn>
+          </v-date-picker>
+         </v-dialog>
+         </v-flex>
+         <v-flex xs6 sm3>
+          <v-dialog
+          ref="timedialog"
+          persistent
+          v-model="timemodal"
+          lazy
+          full-width
+          width="290px"
+          :return-value.sync="eventtime">
+          <v-text-field
+            slot="activator"
+            label="Select Time"
+            v-model="eventtime"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-time-picker v-model="eventtime">
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="timemodal = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.timedialog.save(eventtime)">OK</v-btn>
+          </v-time-picker>
+         </v-dialog>
+         </v-flex> 
+        </v-layout>
+        <!-- Button FIELD -->                
+        <v-layout row>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-btn class="primary" 
+            :disabled="!formIsValid"
+            type="submit"> Create Meetup </v-btn>
+          </v-flex>
+        </v-layout>
+        </form>
+      </v-flex>
+    </v-layout>
+  </v-container>
